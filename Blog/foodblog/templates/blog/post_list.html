@@ -1,9 +1,90 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>FOODIE's SPOT</title>
+    <style type="text/css">
+        h1
+        {
+            color: white;
+            font-weight: bold;
+        }
+        div{position: relative;}
+        button
+        {
+            z-index: 5;
+            float: right;
+        }
+    </style>
+    <script type="text/javascript">
+        function init() {
+            hidden = document.getElementById('hidden');;
+            button = document.getElementById('write');
+            button1 = document.getElementById('signup');
+            button2 = document.getElementById('login');
+            button3 = document.getElementById('logout');
+            authname = document.getElementById('authname');
+
+            if(hidden.innerHTML != "")
+            {
+                authname.style.visibility = "visible";
+                authname.innerHTML = "Welcome, " + hidden.innerHTML;
+                button.style.display = "block";
+                button1.style.display = "none";
+                button2.style.display = "none";
+                button3.style.display = "block";
+            }
+        }
+        function take()
+        {
+            window.location.href = 'http://127.0.0.1:8000/write/';
+        }
+        function signup()
+        {
+            window.location.href = 'http://127.0.0.1:8000/signup/';
+        }
+        function signin()
+        {
+            window.location.href = 'http://127.0.0.1:8000/login/';
+        }
+        function logout()
+        {
+            window.location.href = 'http://127.0.0.1:8000/post/';
+        }
+    </script>
+
+    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/w3.css' %}">
 </head>
-<body>
-<h3><i>Foodie's Spot</i></h3>
+<body onload="init()">
+<div id="hidden" style="display: none;">{{name}}</div>
+<div class="w3-container w3-orange">
+
+<div id="authname" style="visibility: hidden; font-family:Lobster; font-size:20px;"></div>
+<h1 style="font-family:Lobster;"><u>FOODIE'S SPOT</u>
+
+<button id="write" style="display: none;color: red;" onclick="take()" >Write Post</button>
+<button id="logout" style="display: none;color: red;" onclick="logout()" >Logout</button>
+<button id="signup" style="color: red;" onclick="signup()" >SignUp</button>
+<button id="login" style="color: red;" onclick="signin()" >Login</button></h1>
+
+</div>
+
+<div id="posts">
+    <div class="w3-card-4">
+    <img style="height: 500px; width:1500px;" src="{% static 'food2.jpg' %}" alt="Person">
+    </div>
+    <div class="w3-card-12">
+    {% for post in posts %}
+     <div id="post" class="w3-container w3-light-blue">
+        <div class="w3-container w3-indigo"><h2 style="font-family: Lobster;">{{ post.title }}</h2>
+        <h4 style="font-family: Comic Sans MS;"><mark><i>{{post.author}}</i></mark></h4></div>
+
+        <div class="w3-container w3-teal"><p style="font-family: Lobster;">{{ post.text|linebreaksbr }}</p></div>
+        <p><i>published: {{ post.created_date }}</i></p>
+    </div>
+    <br/>
+    {% endfor %}
+</div>
 </body>
 </html>

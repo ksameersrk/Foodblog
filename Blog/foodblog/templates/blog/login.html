@@ -1,0 +1,42 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LOGIN</title>
+    <link rel="stylesheet" href="{% static 'css/w3.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+    <style type="text/css">
+        label{
+            font-family: 'Lobster';
+        }
+    </style>
+    <script type="text/javascript">
+    function init()
+    {
+        var all = document.getElementsByTagName("textarea");
+        for(var i = 0, max = all.length; i < max; i++)
+        {
+            all[i].className = "w3-input w3-border w3-light-grey w3-animate-input";
+        }
+        var but = document.getElementsByTagName('button');
+        but[0].className = "w3-btn w3-btn-block w3-round-jumbo w3-green";
+
+        var hid = document.getElementById('hidden');
+        if(hid.innerHTML != "")
+            alert("LOGIN Incorrect, Please Try Again !!");
+    }
+    </script>
+</head>
+<body onload="init()">
+{% block content %}
+    <div id="hidden" style="display: none;">{{name}}</div>
+    <div class="w3-card-4">
+    <div class="w3-container w3-teal"><h1 style="font-family: 'Lobster';">Login Account</h1></div>
+    <div class="w3-container w3-pale-green">
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Login</button>
+    </form></div></div>
+{% endblock %}
+</body>
+</html>

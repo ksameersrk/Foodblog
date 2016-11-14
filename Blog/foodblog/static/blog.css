@@ -1,0 +1,11 @@
+h2 {
+    color: #FCA205;
+    font-family: 'Lobster';
+    font-weight: bold;
+}
+
+h1 {
+    margin-top: 0;
+    font-family: 'Lobster';
+    padding: 20px 20px 20px 40px;
+}
